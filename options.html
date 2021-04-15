@@ -1,0 +1,185 @@
+<html>
+<style>
+	#logout
+	{
+		margin:-500 0 0 1200;
+		background-color:palegreen;
+		width: 100px;
+		height: 50px;
+		cursor: pointer;
+
+    }
+	#logout:hover
+	{
+		opacity: 0.5;
+	}
+	body
+	{ 
+    background-image:url(pic.jpg);
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    }	
+	.form
+	{
+    position: center;
+	z-index: 1;
+	background:rgba(100,100,100,0.5);
+	max-width: 360;
+	margin: 150 500 100;
+	text-align: center;
+   }
+	
+ .show
+	{
+		display: none;
+		margin :-500 0 0 0;
+		background:rgba(100 200 100 0.5);
+	}
+	th
+	{
+		border: 1px solid;
+		background-color:powderblue;
+		
+	}
+     td
+	{
+       background-color:white;
+       font size: 120%;
+       text-align: center;
+       border: 1px black;
+
+     }
+	label
+	{
+		background-color:black;
+		border:white;
+		color:white;
+		font-size:200%;
+	}
+	select 
+	{   font-size: 150%;
+		border: white;
+	}
+	h1
+	{
+		background-color: powderblue;
+		border:white;
+		color:black;
+	}
+	option
+	{
+		font-color: black;
+		border: black;
+
+
+	}
+	select
+	{
+		font-family:"Roboto",sans-serif;
+	outline: 1;
+	background:white;
+	width: 100%;
+	border:0;
+	padding: 15px;
+	margin: 15 25 0 0;
+	padding-top:20px;
+	padding-right: 30px;
+	padding-left: 30px;
+	padding-bottom: 10px;
+	box-sizing: border-box;
+	font-size: 15px;
+	}
+</style>
+
+<body>
+	<h1>
+		VIRTUAL OPTION TRADING
+	</h1>
+	<form class="form" id="form">
+ <select name="index" id="index" onchange="showindex()">
+    <option  selected="selected">SELECT INDEX</option>
+  </select>
+  <br><br>
+   <select name="expiry" id="expiry" onchange="showexpiry()">
+    <option value="expiry" selected="selected">SELECT EXPIRY DATE</option>
+  </select>
+  <br><br>
+ <select name="strike" id="strike" onchange="showstrike()">
+    <option value="option" selected="selected">SELECT STRIKE PRICE</option>
+  </select>
+  <br><br>
+  <button type="button" value="Submit" onclick="showtable()">submit</button>
+</form>
+<div class="show" id="show">
+<p> SELECTED INDEX IS       :<input type="text" id="indexname"></p>
+<p> SELECTED STRIKE PRICE IS: <input type="text" id="strikeprice"></p>
+<p> EXPIRY DATE             :<input type="text" id="expirydate"></p>
+</div>
+
+<button  id="logout" onclick="document.location='login.html'">LOGOUT</button>
+</body>
+</html>
+</html>
+
+<script>
+	var index=document.getElementById("index"),
+	    arr=["NIFTY","BANKNIFTY"];
+	     for(var i=0;i<arr.length;i++)
+	     {
+	     	var option =document.createElement("OPTION"),txt=document.createTextNode(arr[i]);
+	     	option.appendChild(txt);
+	     	index.insertBefore(option,index.lastChild);
+	     }
+	     var expiry=document.getElementById("expiry"),
+	     arr=["22 APRIL","29 APRIL","6 MAY","13 MAY","20 MAY","27 MAY"];
+	     for(var i=0;i<arr.length;i++)
+	     {
+	     	var option =document.createElement("OPTION"),txt=document.createTextNode(arr[i]);
+	     	option.appendChild(txt);
+	     	expiry.insertBefore(option,expiry.lastChild);
+	     }
+	     var strike=document.getElementById("strike"),
+	     arr1 =["14000 PE","14100 PE","14300 PE","15400 PE","14500 PE","14600 PE","14700 PE","14800 PE","14900 PE","15000 PE","14000 CE","14100 CE","14300 CE","15400 CE","14500 CE","14600 CE","14700 CE","14800 CE","14900 CE","15000 CE"],
+	     arr2 =["31000 PE","31200 PE","31400 PE","31600 PE","31800 PE","32000 PE","32200 PE","32400 PE","32600 PE","32800 PE","31000 CE","31200 CE","31400 CE","31600 CE","31800 CE","32000 CE","32200 CE","32400 CE","32600 CE","32800 CE"];
+	         for(var i=0;i<arr1.length;i++)
+	         {
+	     	    var option =document.createElement("OPTION"),txt=document.createTextNode(arr1[i]);
+	     	    option.appendChild(txt);
+	     	    strike.insertBefore(option,strike.lastChild);
+	         }
+	       
+           
+          	{
+	       	 for(var i=0;i<arr2.length;i++)
+	         {
+	     	    var option =document.createElement("OPTION"),txt=document.createTextNode(arr2[i]);
+	     	    option.appendChild(txt);
+	     	    strike.insertBefore(option,strike.lastChild);
+	         }
+	        }
+
+         function showstrike()
+         {
+         	var s=document.getElementById("strike");
+         	document.getElementById("strikeprice").value=s.options[s.selectedIndex].text;
+
+         }
+         function showexpiry()
+         {
+         	var e=document.getElementById("expiry");
+         	document.getElementById("expirydate").value=e.options[e.selectedIndex].text;
+
+         }
+         function showindex()
+         {
+         	var i=document.getElementById("index");
+         	document.getElementById("indexname").value=i.options[i.selectedIndex].text;
+
+         }
+         function showtable() 
+         {
+ 			document.getElementById("show").classList.toggle("show");
+ 		 }
+</script>
