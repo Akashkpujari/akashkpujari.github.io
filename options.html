@@ -1,15 +1,82 @@
 <html>
 <style>
-	#logout
+    #funds
+    {
+    	position:relative;
+		top:-570;
+		left:100;
+		background-color:tomato;
+		width: 100px;
+		height: 50px;
+    }
+	.tradetable
 	{
-		margin:-500 0 0 1200;
+		visibility: hidden;
+	}
+	#logout
+	{   position:relative;
+		top:-450;
+		left:580;
 		background-color:palegreen;
 		width: 100px;
 		height: 50px;
 		cursor: pointer;
 
     }
-	#logout:hover
+    #nseoption
+    {
+    	 position: relative;
+		top:-350;
+		left:1100;
+		background-color:palegreen;
+		width: 200px;
+		height: 50px;
+		cursor: pointer;
+
+    }
+    #exittrade
+    {
+    	 position: relative;
+		top:-50;
+		left: 300;
+		background-color:palegreen;
+		width: 150px;
+		height: 50px;
+		cursor: pointer;
+
+    }
+     #entertrade
+    {
+    	 position: relative;
+		margin:20 0 0 0;
+		background-color:palegreen;
+		width:330;
+		height:40;
+		font-size: 150%;
+		cursor: pointer;
+    }
+    #niftychart
+    {
+    	 position: relative;
+		top:-250;
+		left:900;
+		background-color:palegreen;
+		width: 200px;
+		height: 50px;
+		cursor: pointer;
+
+    }#bankniftychart
+    {
+    	 position: relative;
+		top:-150;
+		left:700;
+		background-color:palegreen;
+		width: 200px;
+		height: 50px;
+		cursor: pointer;
+
+    }
+	#logout:hover,#nseoption:hover,#entertrade:hover,#niftychart:hover,#banknifty:hover,#exittrade:hover
 	{
 		opacity: 0.5;
 	}
@@ -23,24 +90,31 @@
     }	
 	.form
 	{
-    position: center;
+    position: relative;
 	z-index: 1;
 	background:rgba(100,100,100,0.5);
 	max-width: 360;
-	margin: 150 500 100;
+	margin: 0 500 100;
 	text-align: center;
    }
 	
  .show
 	{
-		display: none;
-		margin :-500 0 0 0;
-		background:rgba(100 200 100 0.5);
-	}
+		visibility: hidden;
+		margin :-500 0 0 0; 
+		position: relative;
+	    z-index: 1;
+	    background:rgba(100,100,100,0.5);
+	    max-width: 360;
+	    margin: 0 100 0 20;
+	    text-align: center;
+	    box-sizing: border-box;
+	    font-size: 15px;
+   } 
 	th
 	{
 		border: 1px solid;
-		background-color:powderblue;
+		background-color:tomato;
 		
 	}
      td
@@ -58,16 +132,11 @@
 		color:white;
 		font-size:200%;
 	}
-	select 
+	select
 	{   font-size: 150%;
 		border: white;
 	}
-	h1
-	{
-		background-color: powderblue;
-		border:white;
-		color:black;
-	}
+	
 	option
 	{
 		font-color: black;
@@ -91,12 +160,39 @@
 	box-sizing: border-box;
 	font-size: 15px;
 	}
+	p
+	{
+		margin:-100 0 0 0;
+		background:rgba(0 0 100 0.2);
+		color: white;
+	}
+	#buyprice,#lots
+	{
+		font-size: 168%;
+		border: white;
+		font-color: black;
+		border: black;
+		margin:30 0 0 0;
+
+	}
+	#balance
+	{
+		
+	}
 </style>
 
+
+
+
+
+
+
+
 <body>
-	<h1>
+	<h1 style="text-align:center;padding:20px;color: white;opacity: 0.8">
 		VIRTUAL OPTION TRADING
 	</h1>
+	<input type="number" id="balance" placeholder="0"></input>
 	<form class="form" id="form">
  <select name="index" id="index" onchange="showindex()">
     <option  selected="selected">SELECT INDEX</option>
@@ -109,19 +205,46 @@
  <select name="strike" id="strike" onchange="showstrike()">
     <option value="option" selected="selected">SELECT STRIKE PRICE</option>
   </select>
+  <input id="buyprice" type="number" value="entryprice" placeholder="enrty price" onchange="showentryprice()">
   <br><br>
-  <button type="button" value="Submit" onclick="showtable()">submit</button>
+  <input id="lots" type="number" value="lots" placeholder="position size" onchange="showlots()">
+  <br><br>
+  <button id="entertrade"type="button" value="Submit" onclick="showtradeinfo()">ENTER TRADE</button>
 </form>
 <div class="show" id="show">
 <p> SELECTED INDEX IS       :<input type="text" id="indexname"></p>
-<p> SELECTED STRIKE PRICE IS: <input type="text" id="strikeprice"></p>
-<p> EXPIRY DATE             :<input type="text" id="expirydate"></p>
+<p> SELECTED STRIKE PRICE IS:<input type="text" id="strikeprice"></p>
+<p> EXPIRY DATE:<input type="text" id="expirydate"></p>
+<p>ENTRY PRICE:<input  id="entryprice"></p>
+<p>POSITION SIZE:<input  id="lotnumber"></p>
+<p>EXIT PRICE:<input id="exitprice"></p>    
+<button id="exittrade" onclick="exittrade()">EXIT TRADE</button>
 </div>
+<button id="nseoption" onclick="document.location='https://www.nseindia.com/option-chain'" formtarget="_blank">NSE OPTION CHAIN</button>
+<button id="niftychart" onclick="document.location='https://in.tradingview.com/chart/?symbol=NSE%3ANIFTY'" formtarget="_blank">NIFTY LIVE CHART</button>
+<button id="bankniftychart" onclick="document.location='https://in.tradingview.com/chart/?symbol=NSE%3BANKNIFTY'" formtarget="_blank">BANKNIFTY LIVE CHART</button>
 
 <button  id="logout" onclick="document.location='login.html'">LOGOUT</button>
+ <table id="funds">
+ 	<tr>
+<th>PROFIT/LOSS</th>
+</tr>
+
+
+</table>
+
+
+</button>
+
 </body>
 </html>
 </html>
+
+
+
+
+
+
 
 <script>
 	var index=document.getElementById("index"),
@@ -178,8 +301,24 @@
          	document.getElementById("indexname").value=i.options[i.selectedIndex].text;
 
          }
-         function showtable() 
+         function showentryprice()
+         {
+         	document.getElementById("entryprice").value=document.getElementById("buyprice").value;
+         }
+         function showtradeinfo() 
          {
  			document.getElementById("show").classList.toggle("show");
  		 }
+ 		 function exittrade()
+ 		 {
+ 		 	document.getElementById("balance").value+=(document.getElementById("exitprice").value-document.getElementById("buyprice").value)*(document.getElementById("lots").value);
+ 		 
+ 		 }
+ 		function showlots()
+ 		 {
+ 		 	
+         	document.getElementById("lotnumber").value=document.getElementById("lots").value;
+ 		 }
+ 		  
+ 		
 </script>
